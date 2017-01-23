@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -17,6 +18,8 @@ public class KwicInput implements Input {
         //TODO exception handling
         System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
         wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
+
+        wordsToIgnore.removeAll(Arrays.asList("", " "));
         
         LOGGER.info("Words to ignore: " + wordsToIgnore.toString());
         
