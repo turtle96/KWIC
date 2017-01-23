@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * */
 public interface Input {
     
-    public void getInput();
+    public void readInput();
     
     public ArrayList<ArrayList<String>> getTitles();
     
