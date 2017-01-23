@@ -22,14 +22,15 @@ public class KwicInput implements Input {
 
     private void readTitles(Scanner scanner) {
         System.out.println("Enter titles to index (press enter after each title, and type 'end' to finish): ");
-        ArrayList<String> titles = new ArrayList<>();
+        titles = new ArrayList<>();
         
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             if (input.equals("end")) {
                 break;
             }
-            titles.add(input);
+            ArrayList<String> toAdd = new ArrayList<>(Arrays.asList(input.split(" ")));
+            titles.add(toAdd);
         }
         
         LOGGER.info("Titles: " + titles.toString());
