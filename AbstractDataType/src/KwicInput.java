@@ -14,13 +14,13 @@ public class KwicInput implements Input {
     public void readInput() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
-        wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
+        readWordsToIgnore(scanner);
+        readTitles(scanner);
+        
+        scanner.close();
+    }
 
-        wordsToIgnore.removeAll(Arrays.asList("", " "));
-        
-        LOGGER.info("Words to ignore: " + wordsToIgnore.toString());
-        
+    private void readTitles(Scanner scanner) {
         System.out.println("Enter titles to index (press enter after each title, and type 'end' to finish): ");
         ArrayList<String> titles = new ArrayList<>();
         
@@ -33,8 +33,15 @@ public class KwicInput implements Input {
         }
         
         LOGGER.info("Titles: " + titles.toString());
+    }
+
+    private void readWordsToIgnore(Scanner scanner) {
+        System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
+        wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
+
+        wordsToIgnore.removeAll(Arrays.asList("", " "));
         
-        scanner.close();
+        LOGGER.info("Words to ignore: " + wordsToIgnore.toString());
     }
 
     @Override
