@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * */
 public interface Alphabetize {
     
-    public void sort();
+    public void sort(ArrayList<Address> addresses);
     
     public ArrayList<Address> getAddresses();
 }

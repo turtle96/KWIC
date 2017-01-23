@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * */
 public interface CircularShift {
     
-    public void shift();
+    public void shift(ArrayList<Address> addresses);
     
     public ArrayList<Address> getAddresses();
 }
