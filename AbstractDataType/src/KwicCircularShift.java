@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+/** compile list of Addresses of keywords and respective titles
+ * */
 public class KwicCircularShift implements CircularShift {
     
     private ArrayList<Address> addresses = new ArrayList<>();
