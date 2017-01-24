@@ -1,42 +1,53 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/** read user input and save titles and wordsToIgnore
+ * */
 public class KwicInput implements Input {
     
-    private ArrayList<ArrayList<String>> titles;
+    private ArrayList<ArrayList<String>> titles;    //array of titles, each title array holds an array of words
     private ArrayList<String> wordsToIgnore;
     
     private static final Logger LOGGER = Logger.getLogger(KwicInput.class.getName());
 
     @Override
-    public void getInput() {
+    public void readInput() {
         Scanner scanner = new Scanner(System.in);
-        
-        //TODO exception handling
-        System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
-        wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
 
-        wordsToIgnore.removeAll(Arrays.asList("", " "));
+        readWordsToIgnore(scanner);
+        readTitles(scanner);
         
-        LOGGER.info("Words to ignore: " + wordsToIgnore.toString());
-        
+        scanner.close();
+    }
+
+    private void readTitles(Scanner scanner) {
         System.out.println("Enter titles to index (press enter after each title, and type 'end' to finish): ");
-        ArrayList<String> titles = new ArrayList<>();
+        titles = new ArrayList<>();
         
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             if (input.equals("end")) {
                 break;
             }
-            titles.add(input);
+            else if (!input.trim().isEmpty()) {
+            	ArrayList<String> toAdd = new ArrayList<>(Arrays.asList(input.split(" ")));
+            	toAdd.removeAll(Arrays.asList("", " "));
+                titles.add(toAdd);
+            }
         }
         
         LOGGER.info("Titles: " + titles.toString());
+    }
+
+    private void readWordsToIgnore(Scanner scanner) {
+        System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
+        wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
+
+        wordsToIgnore.removeAll(Arrays.asList("", " "));
         
-        scanner.close();
+        LOGGER.info("Words to ignore: " + wordsToIgnore.toString());
     }
 
     @Override
