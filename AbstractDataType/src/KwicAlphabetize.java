@@ -4,8 +4,8 @@ public class KwicAlphabetize implements Alphabetize {
     
     private ArrayList<Address> addresses;
     
-    public KwicAlphabetize(ArrayList<Address> addresses) {
-        this.addresses = addresses;
+    public KwicAlphabetize(ArrayList<Address> addressesToSort) {
+        this.addresses = addressesToSort;
     }
 
     @Override
