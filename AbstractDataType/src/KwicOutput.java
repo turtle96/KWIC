@@ -15,7 +15,7 @@ public class KwicOutput implements Output {
 			while (i != startIndex) {
 				displayTitle = displayTitle + " " + title.get(i);
 				i++;
-				if (i>=titleLength) {
+				if (i==titleLength) {
                     i %= titleLength;
                 }
 			}

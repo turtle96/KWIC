@@ -9,25 +9,30 @@ public class KwicCircularShift implements CircularShift {
     @Override
     public void shift(ArrayList<ArrayList<String>> titles, ArrayList<String> wordsToIgnore) {
         int lineIndex = 0, startIndex = 0;
-        boolean ignoreWord = false;
+        boolean isValidWord = true;
         
         for (ArrayList<String> title: titles) {
             for (String word: title) {
-                for (String ignore: wordsToIgnore) {
-                    if (word.equalsIgnoreCase(ignore)) {
-                        ignoreWord = true;
-                    }
-                }
+                isValidWord = isValidWord(wordsToIgnore, word);
                 
-                if (!ignoreWord) {
+                if (isValidWord) {
                     addresses.add(new Address(lineIndex, startIndex));
                 }
                 startIndex++;
-                ignoreWord = false;
+                isValidWord = true;
             }
             startIndex = 0;
             lineIndex++;
         }
+    }
+
+    private boolean isValidWord(ArrayList<String> wordsToIgnore, String word) {
+        for (String ignore: wordsToIgnore) {
+            if (word.equalsIgnoreCase(ignore)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
