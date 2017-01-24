@@ -38,4 +38,12 @@ public class Filter {
         return inputPipe.isEmpty();
     }
     
+    public void waitForXMilliSeconds(int x) {
+        try {
+            Thread.sleep(x);
+        } catch (InterruptedException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
 }

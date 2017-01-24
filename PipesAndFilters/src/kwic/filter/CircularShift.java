@@ -21,6 +21,7 @@ public class CircularShift extends Filter implements Runnable {
             } else {
                 String line = pullFromInput();
                 if (line.equals("eof")) {
+                    pushToOutput(line);
                     break;
                 }
                 shiftTitle(line);
@@ -57,12 +58,6 @@ public class CircularShift extends Filter implements Runnable {
         return sb.toString().trim();
     }
 
-    private void waitForXMilliSeconds(int x) {
-        try {
-            Thread.sleep(x);
-        } catch (InterruptedException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
+    
 
 }

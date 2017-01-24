@@ -25,15 +25,18 @@ public class Main {
         
         ExecutorService es = Executors.newFixedThreadPool(4);
         
-        Pipe inputToCircularShiftConnector = new Pipe();
-        Input input = new Input(null, inputToCircularShiftConnector, filename);
+        Pipe inputToCsConnector = new Pipe();
+        Input input = new Input(null, inputToCsConnector, filename);
         
-        Pipe circularShiftToAlphabetizerConnector = new Pipe();
-        CircularShift circularShift = new CircularShift(inputToCircularShiftConnector, circularShiftToAlphabetizerConnector, ignoreSet);
+        Pipe csToAlphaConnector = new Pipe();
+        CircularShift circularShift = new CircularShift(inputToCsConnector, csToAlphaConnector, ignoreSet);
+        
+        Pipe alphaToOutputConnector = new Pipe();
+        Alphabetizer alphabetizer = new Alphabetizer(csToAlphaConnector, alphaToOutputConnector);
         
         es.execute(input);
         es.execute(circularShift);
-//        es.execute(new Alphabetizer());
+        es.execute(alphabetizer);
 //        es.execute(new Output());
         es.shutdown();
         
