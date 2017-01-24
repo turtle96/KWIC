@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /** Main class
 * */
 public class MainControl {
@@ -7,12 +9,15 @@ public class MainControl {
         input.readInput();
         
         CircularShift circularShift = new KwicCircularShift();
-        circularShift.shift(input.getTitles(), input.getWordsToIgnore());
         
-        for (Address address: circularShift.getAddresses()) {
-            System.out.println(input.getTitles().get(address.getLineIndex()) + " " + 
-                    input.getTitles().get(address.getLineIndex()).get(address.getStartIndex()));
-        }
+        ArrayList<ArrayList<String>> titles = input.getTitles();
+        
+		circularShift.shift(titles, input.getWordsToIgnore());
+		
+		ArrayList<Address> addresses = circularShift.getAddresses();
+        
+        Output output = new KwicOutput();
+        output.display(titles, addresses);
         
     }
 
