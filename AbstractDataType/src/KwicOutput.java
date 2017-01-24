@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+/** Implements Output interface to display indexed list
+ * */
 public class KwicOutput implements Output {
 
 	@Override

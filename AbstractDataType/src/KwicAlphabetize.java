@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+/** sort addresses in alphabetical order
+ * */
 public class KwicAlphabetize implements Alphabetize {
     
     private ArrayList<Address> addresses;
