@@ -14,7 +14,7 @@ public class KwicCircularShift implements CircularShift {
         for (ArrayList<String> title: titles) {
             for (String word: title) {
                 for (String ignore: wordsToIgnore) {
-                    if (word.equals(ignore)) {
+                    if (word.equalsIgnoreCase(ignore)) {
                         ignoreWord = true;
                     }
                 }
