@@ -1,25 +1,41 @@
+package kwic.filter;
 
-public class CircularShift implements Filter, Runnable {
+import kwic.pipe.Pipe;
+
+public class CircularShift extends Filter implements Runnable {
+    
+    
+    public CircularShift(Pipe input, Pipe output) {
+        super(input, output);
+    }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-        for (int i=0; i<20; i++) {
-            System.out.println("In CircularShift");
+        while (true) {
+            if (isInputEmpty()) {
+                waitForXMilliSeconds(1);
+            } else {
+                String line = pullFromInput();
+                if (line.equals("eof")) {
+                    break;
+                }
+                String[] data = line.split(" ");
+                
+                System.out.println("transformed data: " + line);
+                pushToOutput(line);
+            }
         }
         
-    }
-
-    @Override
-    public void pull() {
-        // TODO Auto-generated method stub
+        System.out.println("CircularShift has finished executing");
         
     }
-
-    @Override
-    public void push() {
-        // TODO Auto-generated method stub
-        
+    
+    private void waitForXMilliSeconds(int x) {
+        try {
+            Thread.sleep(x);
+        } catch (InterruptedException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
 }

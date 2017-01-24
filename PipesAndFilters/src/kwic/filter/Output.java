@@ -1,20 +1,16 @@
+package kwic.filter;
 
-public class Output implements Filter, Runnable {
+import kwic.pipe.Pipe;
+
+public class Output extends Filter implements Runnable {
+
+    public Output(Pipe input, Pipe output) {
+        super(input, output);
+        // TODO Auto-generated constructor stub
+    }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void pull() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void push() {
         // TODO Auto-generated method stub
         
     }

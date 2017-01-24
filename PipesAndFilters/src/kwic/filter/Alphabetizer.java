@@ -1,26 +1,31 @@
+package kwic.filter;
 
-public class Alphabetizer implements Filter, Runnable {
+import java.util.PriorityQueue;
+
+import kwic.pipe.Pipe;
+
+public class Alphabetizer extends Filter implements Runnable {
+    
+    private PriorityQueue<String> buffer;
+
+    public Alphabetizer(Pipe input, Pipe output) {
+        super(input, output);
+        buffer = new PriorityQueue<String>();
+    }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-        for (int i=0; i<20; i++) {
-            System.out.println("In Alphabetizer");
-        }
+//        while (true) {
+//            if (inputPipe.isEmpty()) {
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    System.out.println("Error: " + e.getMessage());
+//                }
+//            } else {
+//                buffer.offer(inputPipe.extract());
+//            }
+//        }
     }
-
-    @Override
-    public void pull() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void push() {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    
 
 }
