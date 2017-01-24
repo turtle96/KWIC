@@ -29,8 +29,10 @@ public class KwicInput implements Input {
             if (input.equals("end")) {
                 break;
             }
-            ArrayList<String> toAdd = new ArrayList<>(Arrays.asList(input.split(" ")));
-            titles.add(toAdd);
+            else if (!input.trim().isEmpty()) {
+            	ArrayList<String> toAdd = new ArrayList<>(Arrays.asList(input.split(" ")));
+                titles.add(toAdd);
+            }
         }
         
         LOGGER.info("Titles: " + titles.toString());
