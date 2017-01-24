@@ -3,9 +3,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/** read user input and save titles and wordsToIgnore
+ * */
 public class KwicInput implements Input {
     
-    private ArrayList<ArrayList<String>> titles;
+    private ArrayList<ArrayList<String>> titles;    //array of titles, each title array holds an array of words
     private ArrayList<String> wordsToIgnore;
     
     private static final Logger LOGGER = Logger.getLogger(KwicInput.class.getName());
