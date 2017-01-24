@@ -23,8 +23,6 @@ public class Main {
         textUi.closeScanner();
         textUi.printIgnoreSet(ignoreSet.toString());
         
-        ExecutorService es = Executors.newFixedThreadPool(4);
-        
         Pipe inputToCsConnector = new Pipe();
         Input input = new Input(null, inputToCsConnector, filename);
         
@@ -34,10 +32,14 @@ public class Main {
         Pipe alphaToOutputConnector = new Pipe();
         Alphabetizer alphabetizer = new Alphabetizer(csToAlphaConnector, alphaToOutputConnector);
         
+        Output output = new Output(alphaToOutputConnector, null);
+        
+        ExecutorService es = Executors.newFixedThreadPool(4);
+        
         es.execute(input);
         es.execute(circularShift);
         es.execute(alphabetizer);
-//        es.execute(new Output());
+        es.execute(output);
         es.shutdown();
         
     }

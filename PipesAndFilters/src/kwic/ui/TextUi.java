@@ -54,7 +54,7 @@ public class TextUi {
     }
     
     public void printIgnoreSet(String s) {
-        System.out.println("\nThe list of words to ignore are: " + s);
+        System.out.println("\nThe list of words to ignore are: \n" + s);
         
     }
     
