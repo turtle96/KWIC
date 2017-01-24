@@ -7,13 +7,17 @@ public class KwicOutput implements Output {
 		for (Address address: addresses) {
 			ArrayList<String> title = titles.get(address.getLineIndex());
 			int titleLength = title.size();
-			String displayTitle = "";
+			int startIndex = address.getStartIndex();
 			
-			for (int i=address.getStartIndex(); i<=titleLength; i++) {
-				if (i==titleLength) {
-					i %= titleLength;
-				}
+            String displayTitle = title.get(startIndex);
+			int i = (startIndex + 1) % titleLength;
+			
+			while (i != startIndex) {
 				displayTitle = displayTitle + " " + title.get(i);
+				i++;
+				if (i>=titleLength) {
+                    i %= titleLength;
+                }
 			}
 			
 			System.out.println(displayTitle.trim());
