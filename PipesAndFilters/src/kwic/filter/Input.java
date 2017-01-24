@@ -1,8 +1,8 @@
 package kwic.filter;
 
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Scanner;
+import java.io.IOException;
 
 import kwic.pipe.Pipe;
 
@@ -18,17 +18,16 @@ public class Input extends Filter implements Runnable {
     @Override
     public void run() {
         try {
-            Scanner sc = new Scanner(new FileReader(filename));
-            while (sc.hasNext()) {
-                String line = sc.nextLine();
-                System.out.println(line);
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            String line = br.readLine();
+            while (line != null) {
                 pushToOutput(line);
+                line = br.readLine();
             }
-            sc.close();
-        } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error: Failed to read " + filename);
         }
-        System.out.println("Input has finished executing");
     }
     
 }

@@ -6,26 +6,36 @@ import kwic.pipe.Pipe;
 
 public class Alphabetizer extends Filter implements Runnable {
     
-    private PriorityQueue<String> buffer;
+    private PriorityQueue<String> sorter;
 
     public Alphabetizer(Pipe input, Pipe output) {
         super(input, output);
-        buffer = new PriorityQueue<String>();
+        sorter = new PriorityQueue<String>();
     }
 
     @Override
     public void run() {
-//        while (true) {
-//            if (inputPipe.isEmpty()) {
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    System.out.println("Error: " + e.getMessage());
-//                }
-//            } else {
-//                buffer.offer(inputPipe.extract());
-//            }
-//        }
+        while (true) {
+            if (isInputEmpty()) {
+                waitForXMilliSeconds(1);
+            } else {
+                String line = pullFromInput();
+                if (line.equals("eof")) {
+                    break;
+                }
+                sorter.offer(line);
+            }
+        }
+        
+        pushSortedLinesToOutput();
+        pushToOutput("eof");
+    }
+
+    private void pushSortedLinesToOutput() {
+        while (!sorter.isEmpty()) {
+            String line = sorter.poll();
+            pushToOutput(line);
+        }
     }
 
 }
