@@ -1,12 +1,16 @@
 package kwic.filter;
 
+import java.util.HashSet;
+
 import kwic.pipe.Pipe;
 
 public class CircularShift extends Filter implements Runnable {
     
+    private HashSet<String> ignoreSet;    
     
-    public CircularShift(Pipe input, Pipe output) {
+    public CircularShift(Pipe input, Pipe output, HashSet<String> ignoreSet) {
         super(input, output);
+        this.ignoreSet = ignoreSet;
     }
 
     @Override
@@ -19,17 +23,40 @@ public class CircularShift extends Filter implements Runnable {
                 if (line.equals("eof")) {
                     break;
                 }
-                String[] data = line.split(" ");
-                
-                System.out.println("transformed data: " + line);
-                pushToOutput(line);
+                shiftTitle(line);
+            }
+        }
+    }
+    
+    private void shiftTitle(String line) {
+        String[] data = line.split(" ");
+        for (int i = 0; i < data.length; i++) {
+            if (ignoreSet.contains(data[i].toLowerCase())) {
+                continue;
+            } else {
+                String shiftedLine = buildTitleFromIthWord(data, i);
+                pushToOutput(shiftedLine);
             }
         }
         
-        System.out.println("CircularShift has finished executing");
-        
     }
-    
+
+    private String buildTitleFromIthWord(String[] data, int i) {
+        StringBuilder sb = new StringBuilder();
+        final int NUM_OF_WORDS = data.length;
+        int count = 0;
+        int index = i;
+        while (count < NUM_OF_WORDS) {
+            sb.append(data[index] + " ");
+            index++;
+            if (index >= NUM_OF_WORDS) {
+                index = 0;
+            }
+            count++;
+        }
+        return sb.toString().trim();
+    }
+
     private void waitForXMilliSeconds(int x) {
         try {
             Thread.sleep(x);
