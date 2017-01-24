@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /** read user input and save titles and wordsToIgnore
@@ -11,7 +12,11 @@ public class KwicInput implements Input {
     private ArrayList<String> wordsToIgnore;
     
     private static final Logger LOGGER = Logger.getLogger(KwicInput.class.getName());
-
+    
+    public KwicInput() {
+        LOGGER.setLevel(Level.OFF);
+    }
+    
     @Override
     public void readInput() {
         Scanner scanner = new Scanner(System.in);
