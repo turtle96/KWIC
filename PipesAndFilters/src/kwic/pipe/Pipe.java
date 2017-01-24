@@ -1,0 +1,40 @@
+package kwic.pipe;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * A class representing a pipe that connects 2 filters together
+ * @author Vivian
+ *
+ */
+public class Pipe {
+    
+    private Queue<String> buffer;
+    
+    public Pipe() {
+        buffer = new LinkedList<String>();
+    }
+    
+    /**
+     * Return a string from the pipe's buffer
+     */
+    public String extract() {
+        return buffer.poll();
+    }
+    
+    /**
+     * Insert a string in the pipe's buffer
+     */
+    public void insert(String s) {
+        buffer.offer(s);
+    }
+    
+    /**
+     * Returns true if there is no data in the pipe
+     */
+    public boolean isEmpty() {
+        return buffer.isEmpty();
+    }
+
+}
