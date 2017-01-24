@@ -31,6 +31,7 @@ public class KwicInput implements Input {
             }
             else if (!input.trim().isEmpty()) {
             	ArrayList<String> toAdd = new ArrayList<>(Arrays.asList(input.split(" ")));
+            	toAdd.removeAll(Arrays.asList("", " "));
                 titles.add(toAdd);
             }
         }
