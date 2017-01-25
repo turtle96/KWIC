@@ -22,7 +22,7 @@ public class InputTest extends KwicInput {
         
         ArrayList<ArrayList<String>> titles = input.getTitles();
         
-        ArrayList<ArrayList<String>> expected = prepareExpected(
+        ArrayList<ArrayList<String>> expected = prepareExpectedTitles(
                 "The Day after Tomorrow", "Fast and Furious", "Man of Steel");
 
         assert titles.equals(expected);
@@ -37,13 +37,13 @@ public class InputTest extends KwicInput {
         
         ArrayList<ArrayList<String>> titles = input.getTitles();
         
-        ArrayList<ArrayList<String>> expected = prepareExpected(
+        ArrayList<ArrayList<String>> expected = prepareExpectedTitles(
                 "The Day after Tomorrow", "Fast and Furious", "Man of Steel");
 
         assert titles.equals(expected);
     }
 
-    private ArrayList<ArrayList<String>> prepareExpected(String... strings) {
+    private ArrayList<ArrayList<String>> prepareExpectedTitles(String... strings) {
         ArrayList<ArrayList<String>> expected = new ArrayList<>();
         ArrayList<String> expectedLines = new ArrayList<>(Arrays.asList(strings)); 
         for (String line: expectedLines) {
