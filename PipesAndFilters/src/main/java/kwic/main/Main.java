@@ -30,7 +30,8 @@ public class Main {
     }
 
     private void runFilters() {
-        es = Executors.newFixedThreadPool(4);
+        final int NUM_OF_FILTERS = 4;
+        es = Executors.newFixedThreadPool(NUM_OF_FILTERS);
         es.execute(input);
         es.execute(circularShift);
         es.execute(alphabetizer);
