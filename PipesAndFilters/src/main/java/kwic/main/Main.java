@@ -22,7 +22,7 @@ public class Main {
         textUi.displayTitle();
         textUi.initScanner();
         HashSet<String> ignoreSet = textUi.getSetOfIgnoreWords();
-        FileReader inputFileReader = textUi.getFileReaderOfInputTitles();
+        FileReader inputFileReader = textUi.getFileReader(TextUi.GET_TITLES_FILE_PROMPT);
         textUi.closeScanner();
         textUi.printIgnoreSet(ignoreSet.toString());
         

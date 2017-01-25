@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class TextUi {
     
-    final private static String GET_IGNORE_FILENAME_PROMPT = "Enter filename of the list of words to ignore: ";
-    final private static String GET_TITLES_FILENAME_PROMPT = "Enter filename of the list of input titles: ";
+    final public static String GET_IGNORE_FILE_PROMPT = "Enter filename of the list of words to ignore: ";
+    final public static String GET_TITLES_FILE_PROMPT = "Enter filename of the list of input titles: ";
     
     private Scanner sc;
     
@@ -37,7 +37,7 @@ public class TextUi {
      */
     public HashSet<String> getSetOfIgnoreWords() {
         HashSet<String> ignoreSet = new HashSet<String>();
-        FileReader fr = getFileReader(GET_IGNORE_FILENAME_PROMPT);
+        FileReader fr = getFileReader(GET_IGNORE_FILE_PROMPT);
         BufferedReader br = new BufferedReader(fr);
 
         try {
@@ -60,14 +60,6 @@ public class TextUi {
     }
     
     /**
-     * Returns the FileReader object of the input file
-     */
-    public FileReader getFileReaderOfInputTitles() {
-        FileReader fr = getFileReader(GET_TITLES_FILENAME_PROMPT);
-        return fr;
-    }
-    
-    /**
      * Print to console the list of words to ignore
      */
     public void printIgnoreSet(String s) {
@@ -78,7 +70,7 @@ public class TextUi {
     /**
      * Asks the user for a valid file name and returns a FileReader object of that file
      */
-    private FileReader getFileReader(String prompt) {
+    public FileReader getFileReader(String prompt) {
         FileReader fr = null;
         try {
             do {
@@ -108,6 +100,13 @@ public class TextUi {
         }
         
         return filename;
+    }
+    
+    /**
+     * Initialize Scanner object with fixed input. For testing purposes only.
+     */
+    public void initScanner(String s) {
+        sc = new Scanner(s);
     }
 
 }
