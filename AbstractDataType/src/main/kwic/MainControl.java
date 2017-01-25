@@ -1,5 +1,6 @@
 package kwic;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /** Main class
 * */
@@ -7,7 +8,7 @@ public class MainControl {
 
     public static void main(String[] args) {
         Input input = new KwicInput();
-        input.readInput();
+        input.readInput(new Scanner(System.in));
         ArrayList<ArrayList<String>> titles = input.getTitles();
 
         CircularShift circularShift = new KwicCircularShift();

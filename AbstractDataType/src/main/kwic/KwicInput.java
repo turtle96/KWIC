@@ -19,9 +19,7 @@ public class KwicInput implements Input {
     }
     
     @Override
-    public void readInput() {
-        Scanner scanner = new Scanner(System.in);
-
+    public void readInput(Scanner scanner) {
         readWordsToIgnore(scanner);
         readTitles(scanner);
         
