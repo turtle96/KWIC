@@ -1,8 +1,9 @@
 package kwic.filter;
 
+import kwic.model.Data;
 import kwic.pipe.Pipe;
 
-public class Output extends Filter implements Runnable {
+public class Output extends Filter {
 
     public Output(Pipe input, Pipe output) {
         super(input, output);
@@ -14,16 +15,17 @@ public class Output extends Filter implements Runnable {
         
         while (true) {
             if (isInputEmpty()) {
-                waitForXMilliSeconds(1);
+                sleepForXSeconds(1);
             } else {
-                String line = pullFromInput();
-                if (line.equals("eof")) {
+                sleepForXSeconds(1);
+                Data data = pullFromInput();
+                System.out.println(getCurrentTime() + " Output pulled: " + data.getValue());
+                if (data.isLast()) {
                     break;
                 }
-                System.out.println(line);
+                //System.out.println(data.getValue());
             }
         }
-        
     }
 
 }
