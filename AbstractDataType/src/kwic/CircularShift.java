@@ -1,3 +1,4 @@
+package kwic;
 import java.util.ArrayList;
 
 /** Interface to shift titles circularly by keywords and ignoring 'words to ignore'

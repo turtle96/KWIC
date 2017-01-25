@@ -1,3 +1,4 @@
+package kwic;
 
 /** Data holder for indexes of titles and keywords in ArrayList
  * */

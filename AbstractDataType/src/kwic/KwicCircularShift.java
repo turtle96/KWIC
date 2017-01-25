@@ -1,3 +1,4 @@
+package kwic;
 import java.util.ArrayList;
 
 /** compile list of Addresses of keywords and respective titles

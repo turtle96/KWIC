@@ -1,3 +1,4 @@
+package kwic;
 import java.util.ArrayList;
 
 /** Implements Output interface to display indexed list

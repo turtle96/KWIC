@@ -1,3 +1,4 @@
+package kwic;
 import java.util.ArrayList;
 
 /** Interface to retrieve input from user

@@ -1,3 +1,4 @@
+package kwic;
 import java.util.ArrayList;
 
 /** sort addresses in alphabetical order
@@ -38,7 +39,7 @@ public class KwicAlphabetize implements Alphabetize {
         ArrayList<String> leftTitle = titles.get(left.getLineIndex()), rightTitle = titles.get(right.getLineIndex());
         int leftIndex = left.getStartIndex(), rightIndex = right.getStartIndex();
         
-        while (leftWord.equalsIgnoreCase(rightWord)) {
+        do {
             
             leftWord = leftTitle.get(leftIndex);
             rightWord = rightTitle.get(rightIndex);
@@ -54,6 +55,12 @@ public class KwicAlphabetize implements Alphabetize {
             else if (leftWord.compareToIgnoreCase(rightWord) < 0) {
                 return false;
             }
+        } while (leftWord.equalsIgnoreCase(rightWord)
+                && leftIndex!=left.getStartIndex()
+                && rightIndex!=right.getStartIndex());
+        
+        if (leftIndex!=left.getStartIndex() && rightIndex==right.getStartIndex()) {
+            return true;
         }
         
         return false;
