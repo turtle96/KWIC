@@ -1,6 +1,6 @@
-package kwic.filter;
+package main.kwic.filter;
 
-import kwic.pipe.Pipe;
+import main.kwic.pipe.Pipe;
 
 public class Output extends Filter {
 

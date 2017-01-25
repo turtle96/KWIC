@@ -1,11 +1,14 @@
-package kwic.ui;
+package main.kwic.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
+
+import main.kwic.exception.InvalidFileNameException;
 
 public class TextUi {
     
@@ -32,7 +35,7 @@ public class TextUi {
 
     public HashSet<String> getSetOfIgnoreWords() {
         HashSet<String> ignoreSet = new HashSet<String>();
-        String filename = getFilename(GET_IGNORE_FILENAME_PROMPT);
+        String filename = getFileName(GET_IGNORE_FILENAME_PROMPT);
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -49,8 +52,17 @@ public class TextUi {
         return ignoreSet;
     }
     
-    public String getFilenameOfInputTitles() {
-        return getFilename(GET_TITLES_FILENAME_PROMPT);
+    public FileReader getFileReaderOfInputTitles() {
+        FileReader fr = null;
+        try {
+            do {
+                String fileName = getFileName(GET_TITLES_FILENAME_PROMPT);
+                fr = getFileReader(fileName);
+            } while (fr == null);
+        } catch (FileNotFoundException | InvalidFileNameException e) {
+            System.out.println("The file name you have entered is missing or invalid.");
+        }
+        return fr;
     }
     
     public void printIgnoreSet(String s) {
@@ -58,21 +70,22 @@ public class TextUi {
         
     }
     
-    private String getFilename(String prompt) {
+    private FileReader getFileReader(String filename) throws FileNotFoundException {
+        FileReader fr = new FileReader(filename);
+        return fr;
+    }
+    
+    private String getFileName(String prompt) throws InvalidFileNameException {
         String filename = "";
         
-        do {
-            System.out.println(prompt);
-            if (sc.hasNextLine()) {
-                filename = sc.nextLine();
-            }
-            if (isFilenameValid(filename)) {
-                break;
-            } else {
-                System.out.println("The filename that you have entered does not exist.");
-            }
-        } while(true);
-
+        System.out.println(prompt);
+        if (sc.hasNextLine()) {
+            filename = sc.nextLine();
+        }
+        if (filename.isEmpty()) {
+            throw new InvalidFileNameException();
+        }
+        
         return filename;
     }
 

@@ -1,8 +1,8 @@
-package kwic.filter;
+package main.kwic.filter;
 
 import java.util.PriorityQueue;
 
-import kwic.pipe.Pipe;
+import main.kwic.pipe.Pipe;
 
 public class Alphabetizer extends Filter {
     

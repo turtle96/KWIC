@@ -1,8 +1,8 @@
-package kwic.filter;
+package main.kwic.filter;
 
 import java.util.HashSet;
 
-import kwic.pipe.Pipe;
+import main.kwic.pipe.Pipe;
 
 public class CircularShift extends Filter {
     

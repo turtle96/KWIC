@@ -1,10 +1,10 @@
-package kwic.filter;
+package main.kwic.filter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import kwic.pipe.Pipe;
+import main.kwic.pipe.Pipe;
 
 public class Input extends Filter {
     
