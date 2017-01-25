@@ -15,36 +15,58 @@ import kwic.ui.TextUi;
 
 public class Main {
     
-    public static void main(String[] args) {
-        
-        TextUi textUi = new TextUi();
-        
-        textUi.displayTitle();
-        textUi.initScanner();
-        HashSet<String> ignoreSet = textUi.getSetOfIgnoreWords();
-        FileReader inputFileReader = textUi.getFileReader(TextUi.GET_TITLES_FILE_PROMPT);
-        textUi.closeScanner();
-        textUi.printIgnoreSet(ignoreSet.toString());
-        
-        Pipe inputToCsConnector = new Pipe();
-        Filter input = new Input(null, inputToCsConnector, inputFileReader);
-        
-        Pipe csToAlphaConnector = new Pipe();
-        Filter circularShift = new CircularShift(inputToCsConnector, csToAlphaConnector, ignoreSet);
-        
-        Pipe alphaToOutputConnector = new Pipe();
-        Filter alphabetizer = new Alphabetizer(csToAlphaConnector, alphaToOutputConnector);
-        
-        Filter output = new Output(alphaToOutputConnector, null);
-        
-        ExecutorService es = Executors.newFixedThreadPool(4);
-        
+    private HashSet<String> ignoreSet;
+    private FileReader inputFileReader;
+    
+    private Filter input;
+    private Filter circularShift;
+    private Filter alphabetizer;
+    private Filter output;
+    
+    private ExecutorService es;
+    
+    private void shutdown() {
+        es.shutdown();
+    }
+
+    private void runFilters() {
+        es = Executors.newFixedThreadPool(4);
         es.execute(input);
         es.execute(circularShift);
         es.execute(alphabetizer);
         es.execute(output);
-        es.shutdown();
+    }
+
+    private void createPipesAndFilters() {
+        Pipe inputToCsConnector = new Pipe();
+        input = new Input(null, inputToCsConnector, inputFileReader);
         
+        Pipe csToAlphaConnector = new Pipe();
+        circularShift = new CircularShift(inputToCsConnector, csToAlphaConnector, ignoreSet);
+        
+        Pipe alphaToOutputConnector = new Pipe();
+        alphabetizer = new Alphabetizer(csToAlphaConnector, alphaToOutputConnector);
+        
+        output = new Output(alphaToOutputConnector, null);
+    }
+
+    private void getInputsFromUser() {
+        TextUi textUi = new TextUi();
+
+        textUi.displayTitle();
+        textUi.initScanner();
+        ignoreSet = textUi.getSetOfIgnoreWords();
+        inputFileReader = textUi.getFileReader(TextUi.GET_TITLES_FILE_PROMPT);
+        textUi.closeScanner();
+        textUi.printIgnoreSet(ignoreSet.toString());
+    }
+    
+    public static void main(String[] args) {
+        Main mainControl = new Main();
+        mainControl.getInputsFromUser();
+        mainControl.createPipesAndFilters();
+        mainControl.runFilters();
+        mainControl.shutdown();
     }
 
 }
