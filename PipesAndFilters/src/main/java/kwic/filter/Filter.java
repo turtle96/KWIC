@@ -1,6 +1,6 @@
-package main.kwic.filter;
+package kwic.filter;
 
-import main.kwic.pipe.Pipe;
+import kwic.pipe.Pipe;
 
 /**
  * A class representing a filter that computes a task/process.

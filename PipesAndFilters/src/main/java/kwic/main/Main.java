@@ -1,16 +1,16 @@
-package main.kwic.main;
+package kwic.main;
 
 import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import main.kwic.filter.Alphabetizer;
-import main.kwic.filter.CircularShift;
-import main.kwic.filter.Filter;
-import main.kwic.filter.Input;
-import main.kwic.filter.Output;
-import main.kwic.pipe.Pipe;
-import main.kwic.ui.TextUi;
+import kwic.filter.Alphabetizer;
+import kwic.filter.CircularShift;
+import kwic.filter.Filter;
+import kwic.filter.Input;
+import kwic.filter.Output;
+import kwic.pipe.Pipe;
+import kwic.ui.TextUi;
 
 public class Main {
     

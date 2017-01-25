@@ -1,4 +1,4 @@
-package main.kwic.pipe;
+package kwic.pipe;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 

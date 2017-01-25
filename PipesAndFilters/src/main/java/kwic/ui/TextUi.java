@@ -1,4 +1,4 @@
-package main.kwic.ui;
+package kwic.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 
-import main.kwic.exception.InvalidFileNameException;
+import kwic.exception.InvalidFileNameException;
 
 public class TextUi {
     
