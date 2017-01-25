@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 import kwic.pipe.Pipe;
 
-public class Alphabetizer extends Filter implements Runnable {
+public class Alphabetizer extends Filter {
     
     private PriorityQueue<String> sorter;
 

@@ -3,11 +3,11 @@ package kwic.filter;
 import kwic.pipe.Pipe;
 
 /**
- * A class representing a filter that represents a task/process.
+ * A class representing a filter that computes a task/process.
  * @author Vivian
  *
  */
-public class Filter {
+public abstract class Filter implements Runnable {
     
     private Pipe inputPipe;
     private Pipe outputPipe;
@@ -45,5 +45,8 @@ public class Filter {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    @Override
+    public abstract void run();
     
 }

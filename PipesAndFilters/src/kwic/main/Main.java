@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 import kwic.filter.Alphabetizer;
 import kwic.filter.CircularShift;
+import kwic.filter.Filter;
 import kwic.filter.Input;
 import kwic.filter.Output;
 import kwic.pipe.Pipe;
@@ -24,15 +25,15 @@ public class Main {
         textUi.printIgnoreSet(ignoreSet.toString());
         
         Pipe inputToCsConnector = new Pipe();
-        Input input = new Input(null, inputToCsConnector, filename);
+        Filter input = new Input(null, inputToCsConnector, filename);
         
         Pipe csToAlphaConnector = new Pipe();
-        CircularShift circularShift = new CircularShift(inputToCsConnector, csToAlphaConnector, ignoreSet);
+        Filter circularShift = new CircularShift(inputToCsConnector, csToAlphaConnector, ignoreSet);
         
         Pipe alphaToOutputConnector = new Pipe();
-        Alphabetizer alphabetizer = new Alphabetizer(csToAlphaConnector, alphaToOutputConnector);
+        Filter alphabetizer = new Alphabetizer(csToAlphaConnector, alphaToOutputConnector);
         
-        Output output = new Output(alphaToOutputConnector, null);
+        Filter output = new Output(alphaToOutputConnector, null);
         
         ExecutorService es = Executors.newFixedThreadPool(4);
         

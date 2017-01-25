@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import kwic.pipe.Pipe;
 
-public class Input extends Filter implements Runnable {
+public class Input extends Filter {
     
     private String filename;
     
@@ -29,5 +29,5 @@ public class Input extends Filter implements Runnable {
             System.out.println("Error: Failed to read " + filename);
         }
     }
-    
+
 }

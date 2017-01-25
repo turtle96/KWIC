@@ -2,7 +2,7 @@ package kwic.filter;
 
 import kwic.pipe.Pipe;
 
-public class Output extends Filter implements Runnable {
+public class Output extends Filter {
 
     public Output(Pipe input, Pipe output) {
         super(input, output);

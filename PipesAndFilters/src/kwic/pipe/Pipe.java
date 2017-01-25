@@ -1,7 +1,6 @@
 package kwic.pipe;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * A class representing a pipe that connects 2 filters together
@@ -10,10 +9,10 @@ import java.util.Queue;
  */
 public class Pipe {
     
-    private Queue<String> buffer;
+    private ConcurrentLinkedQueue<String> buffer;
     
     public Pipe() {
-        buffer = new LinkedList<String>();
+        buffer = new ConcurrentLinkedQueue<String>();
     }
     
     /**

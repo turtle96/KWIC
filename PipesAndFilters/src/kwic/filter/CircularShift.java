@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import kwic.pipe.Pipe;
 
-public class CircularShift extends Filter implements Runnable {
+public class CircularShift extends Filter {
     
     private HashSet<String> ignoreSet;    
     
@@ -57,7 +57,5 @@ public class CircularShift extends Filter implements Runnable {
         }
         return sb.toString().trim();
     }
-
-    
 
 }
