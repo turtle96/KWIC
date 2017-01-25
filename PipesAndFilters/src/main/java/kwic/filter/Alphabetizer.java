@@ -18,11 +18,12 @@ public class Alphabetizer extends Filter {
     public void run() {
         while (true) {
             if (isInputEmpty()) {
-                sleepForXMilliSeconds(1);
+                sleepForXSeconds(1);
             } else {
+                sleepForXSeconds(1);
                 Data data = pullFromInput();
+                System.out.println(getCurrentTime() + " A pulled: " + data.getValue());
                 if (data.isLast()) {
-                    sendLastDataObjFlag();
                     break;
                 }
                 sorter.offer(data);
@@ -31,12 +32,15 @@ public class Alphabetizer extends Filter {
         
         pushSortedLinesToOutput();
         sendLastDataObjFlag();
+        System.out.println(getCurrentTime() + " A pushed: last data");
     }
 
     private void pushSortedLinesToOutput() {
         while (!sorter.isEmpty()) {
             Data data = sorter.poll();
             pushToOutput(data);
+            System.out.println(getCurrentTime() + " A pushed: " + data.getValue());
+            sleepForXSeconds(1);
         }
     }
 

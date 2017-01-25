@@ -1,5 +1,8 @@
 package kwic.filter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import kwic.model.Data;
 import kwic.pipe.Pipe;
 
@@ -43,9 +46,10 @@ public abstract class Filter implements Runnable {
         pushToOutput(Data.createEndOfDataObj());
     }
     
-    public void sleepForXMilliSeconds(int x) {
+    public void sleepForXSeconds(int x) {
         try {
-            Thread.sleep(x);
+            int seconds = x * 1000;
+            Thread.sleep(seconds);
         } catch (InterruptedException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -53,5 +57,11 @@ public abstract class Filter implements Runnable {
 
     @Override
     public abstract void run();
+    
+    public String getCurrentTime() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        return sdf.format(cal.getTime());
+    }
     
 }

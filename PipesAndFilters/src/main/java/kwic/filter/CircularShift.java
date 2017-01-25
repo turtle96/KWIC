@@ -18,11 +18,14 @@ public class CircularShift extends Filter {
     public void run() {
         while (true) {
             if (isInputEmpty()) {
-                sleepForXMilliSeconds(1);
+                sleepForXSeconds(1);
             } else {
+                sleepForXSeconds(1);
                 Data data = pullFromInput();
+                System.out.println(getCurrentTime() + " CS pulled: " + data.getValue());
                 if (data.isLast()) {
                     sendLastDataObjFlag();
+                    System.out.println(getCurrentTime() + " CS pushed: last data");
                     break;
                 }
                 shiftTitle(data.getValue());
@@ -38,6 +41,8 @@ public class CircularShift extends Filter {
             } else {
                 String shiftedLine = buildTitleFromIthWord(words, i);
                 pushToOutput(new Data(shiftedLine));
+                System.out.println(getCurrentTime() + " CS pushed: " + shiftedLine);
+                sleepForXSeconds(1);
             }
         }
         

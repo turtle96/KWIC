@@ -1,6 +1,6 @@
 package kwic.model;
 
-public class Data implements Comparable<String> {
+public class Data implements Comparable<Data> {
 
     private String value;
     private boolean isLast;
@@ -30,8 +30,8 @@ public class Data implements Comparable<String> {
     }
 
     @Override
-    public int compareTo(String s) {
-        return value.compareTo(s);
+    public int compareTo(Data data) {
+        return value.compareTo(data.getValue());
     }
     
     public static Data createEndOfDataObj() {

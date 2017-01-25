@@ -15,13 +15,15 @@ public class Output extends Filter {
         
         while (true) {
             if (isInputEmpty()) {
-                sleepForXMilliSeconds(1);
+                sleepForXSeconds(1);
             } else {
+                sleepForXSeconds(1);
                 Data data = pullFromInput();
+                System.out.println(getCurrentTime() + " Output pulled: " + data.getValue());
                 if (data.isLast()) {
                     break;
                 }
-                System.out.println(data.getValue());
+                //System.out.println(data.getValue());
             }
         }
     }

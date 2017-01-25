@@ -21,9 +21,13 @@ public class Input extends Filter {
         BufferedReader br = new BufferedReader(inputFr);
         try {
             String line = br.readLine();
+            sleepForXSeconds(1);
             while (line != null) {
+                System.out.println(getCurrentTime() + " Input read: " + line);
                 Data data = new Data(line);
                 pushToOutput(data);
+                System.out.println(getCurrentTime() + " Input pushed: " + line);
+                sleepForXSeconds(1);
                 line = br.readLine();
             }
         } catch (IOException e) {
@@ -37,6 +41,7 @@ public class Input extends Filter {
         }
         
         sendLastDataObjFlag();
+        System.out.println(getCurrentTime() + " Input pushed: last data");
     }
 
 }
