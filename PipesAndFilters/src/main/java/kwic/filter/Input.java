@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import kwic.model.Data;
 import kwic.pipe.Pipe;
 
 public class Input extends Filter {
@@ -21,7 +22,8 @@ public class Input extends Filter {
         try {
             String line = br.readLine();
             while (line != null) {
-                pushToOutput(line);
+                Data data = new Data(line);
+                pushToOutput(data);
                 line = br.readLine();
             }
         } catch (IOException e) {
@@ -33,6 +35,8 @@ public class Input extends Filter {
                 System.out.println("Unrecoverable error from Input::run()");
             }
         }
+        
+        sendLastDataObjFlag();
     }
 
 }

@@ -2,6 +2,8 @@ package kwic.pipe;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import kwic.model.Data;
+
 /**
  * A class representing a pipe that connects 2 filters together
  * @author Vivian
@@ -9,24 +11,24 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class Pipe {
     
-    private ConcurrentLinkedQueue<String> buffer;
+    private ConcurrentLinkedQueue<Data> buffer;
     
     public Pipe() {
-        buffer = new ConcurrentLinkedQueue<String>();
+        buffer = new ConcurrentLinkedQueue<Data>();
     }
     
     /**
      * Return a string from the pipe's buffer
      */
-    public String extract() {
+    public Data extract() {
         return buffer.poll();
     }
     
     /**
      * Insert a string in the pipe's buffer
      */
-    public void insert(String s) {
-        buffer.offer(s);
+    public void insert(Data data) {
+        buffer.offer(data);
     }
     
     /**

@@ -2,6 +2,7 @@ package kwic.filter;
 
 import java.util.HashSet;
 
+import kwic.model.Data;
 import kwic.pipe.Pipe;
 
 public class CircularShift extends Filter {
@@ -17,38 +18,38 @@ public class CircularShift extends Filter {
     public void run() {
         while (true) {
             if (isInputEmpty()) {
-                waitForXMilliSeconds(1);
+                sleepForXMilliSeconds(1);
             } else {
-                String line = pullFromInput();
-                if (line.equals("eof")) {
-                    pushToOutput(line);
+                Data data = pullFromInput();
+                if (data.isLast()) {
+                    sendLastDataObjFlag();
                     break;
                 }
-                shiftTitle(line);
+                shiftTitle(data.getValue());
             }
         }
     }
     
     private void shiftTitle(String line) {
-        String[] data = line.split(" ");
-        for (int i = 0; i < data.length; i++) {
-            if (ignoreSet.contains(data[i].toLowerCase())) {
+        String[] words = line.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            if (ignoreSet.contains(words[i].toLowerCase())) {
                 continue;
             } else {
-                String shiftedLine = buildTitleFromIthWord(data, i);
-                pushToOutput(shiftedLine);
+                String shiftedLine = buildTitleFromIthWord(words, i);
+                pushToOutput(new Data(shiftedLine));
             }
         }
         
     }
 
-    private String buildTitleFromIthWord(String[] data, int i) {
+    private String buildTitleFromIthWord(String[] words, int i) {
         StringBuilder sb = new StringBuilder();
-        final int NUM_OF_WORDS = data.length;
+        final int NUM_OF_WORDS = words.length;
         int count = 0;
         int index = i;
         while (count < NUM_OF_WORDS) {
-            sb.append(data[index] + " ");
+            sb.append(words[index] + " ");
             index++;
             if (index >= NUM_OF_WORDS) {
                 index = 0;

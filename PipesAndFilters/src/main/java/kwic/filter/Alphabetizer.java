@@ -2,39 +2,41 @@ package kwic.filter;
 
 import java.util.PriorityQueue;
 
+import kwic.model.Data;
 import kwic.pipe.Pipe;
 
 public class Alphabetizer extends Filter {
     
-    private PriorityQueue<String> sorter;
+    private PriorityQueue<Data> sorter;
 
     public Alphabetizer(Pipe input, Pipe output) {
         super(input, output);
-        sorter = new PriorityQueue<String>();
+        sorter = new PriorityQueue<Data>();
     }
 
     @Override
     public void run() {
         while (true) {
             if (isInputEmpty()) {
-                waitForXMilliSeconds(1);
+                sleepForXMilliSeconds(1);
             } else {
-                String line = pullFromInput();
-                if (line.equals("eof")) {
+                Data data = pullFromInput();
+                if (data.isLast()) {
+                    sendLastDataObjFlag();
                     break;
                 }
-                sorter.offer(line);
+                sorter.offer(data);
             }
         }
         
         pushSortedLinesToOutput();
-        pushToOutput("eof");
+        sendLastDataObjFlag();
     }
 
     private void pushSortedLinesToOutput() {
         while (!sorter.isEmpty()) {
-            String line = sorter.poll();
-            pushToOutput(line);
+            Data data = sorter.poll();
+            pushToOutput(data);
         }
     }
 

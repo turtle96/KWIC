@@ -1,5 +1,6 @@
 package kwic.filter;
 
+import kwic.model.Data;
 import kwic.pipe.Pipe;
 
 public class Output extends Filter {
@@ -14,16 +15,15 @@ public class Output extends Filter {
         
         while (true) {
             if (isInputEmpty()) {
-                waitForXMilliSeconds(1);
+                sleepForXMilliSeconds(1);
             } else {
-                String line = pullFromInput();
-                if (line.equals("eof")) {
+                Data data = pullFromInput();
+                if (data.isLast()) {
                     break;
                 }
-                System.out.println(line);
+                System.out.println(data.getValue());
             }
         }
-        
     }
 
 }

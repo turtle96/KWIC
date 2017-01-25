@@ -1,5 +1,6 @@
 package kwic.filter;
 
+import kwic.model.Data;
 import kwic.pipe.Pipe;
 
 /**
@@ -20,14 +21,14 @@ public abstract class Filter implements Runnable {
     /**
      * Push data out to the pipe connected to the next filter.
      */
-    public void pushToOutput(String s) {
-        outputPipe.insert(s);
+    public void pushToOutput(Data data) {
+        outputPipe.insert(data);
     }
     
     /**
      * Pull data from the pipe connected to the previous filter.
      */
-    public String pullFromInput() {
+    public Data pullFromInput() {
         return inputPipe.extract();
     }
     
@@ -38,7 +39,11 @@ public abstract class Filter implements Runnable {
         return inputPipe.isEmpty();
     }
     
-    public void waitForXMilliSeconds(int x) {
+    public void sendLastDataObjFlag() {
+        pushToOutput(Data.createEndOfDataObj());
+    }
+    
+    public void sleepForXMilliSeconds(int x) {
         try {
             Thread.sleep(x);
         } catch (InterruptedException e) {

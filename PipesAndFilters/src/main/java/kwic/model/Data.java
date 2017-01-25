@@ -5,9 +5,18 @@ public class Data implements Comparable<String> {
     private String value;
     private boolean isLast;
     
+    public Data(String s) {
+        value = s;
+        isLast = false;
+    }
+    
     public Data(String s, boolean flag) {
         value = s;
         isLast = flag;
+    }
+    
+    public String getValue() {
+        return value;
     }
     
     public boolean isLast() {
@@ -16,7 +25,8 @@ public class Data implements Comparable<String> {
     
     @Override
     public String toString() {
-        return value;
+        String s = "[" + value + ", " + isLast + "]";
+        return s;
     }
 
     @Override
