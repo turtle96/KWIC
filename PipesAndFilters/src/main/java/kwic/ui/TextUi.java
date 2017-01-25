@@ -1,14 +1,11 @@
 package kwic.ui;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
-
-import kwic.exception.InvalidFileNameException;
 
 public class TextUi {
     
@@ -17,7 +14,9 @@ public class TextUi {
     
     private Scanner sc;
     
-    public TextUi() {
+    public TextUi() {}
+    
+    public void initScanner() {
         sc = new Scanner(System.in);
     }
     
@@ -33,49 +32,71 @@ public class TextUi {
         System.out.println(sb.toString());
     }
 
+    /**
+     * Reads the list of words to ignore from a file and return a HashSet containing that list
+     */
     public HashSet<String> getSetOfIgnoreWords() {
         HashSet<String> ignoreSet = new HashSet<String>();
-        String filename = getFileName(GET_IGNORE_FILENAME_PROMPT);
-        
+        FileReader fr = getFileReader(GET_IGNORE_FILENAME_PROMPT);
+        BufferedReader br = new BufferedReader(fr);
+
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
             String word = br.readLine();
             while (word != null) {
                 ignoreSet.add(word.toLowerCase());
                 word = br.readLine();
             }
-            br.close();
-        } catch (IOException e) {
-            System.out.println("Error: Failed to read " + filename);
+        } catch (IOException ioe) {
+            System.out.println("Error occurred while reading file containing list of words to ignore");
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                System.out.println("Unrecoverable error from TextUi::getSetOfIgnoreWords()");
+            }
         }
         
         return ignoreSet;
     }
     
+    /**
+     * Returns the FileReader object of the input file
+     */
     public FileReader getFileReaderOfInputTitles() {
-        FileReader fr = null;
-        try {
-            do {
-                String fileName = getFileName(GET_TITLES_FILENAME_PROMPT);
-                fr = getFileReader(fileName);
-            } while (fr == null);
-        } catch (FileNotFoundException | InvalidFileNameException e) {
-            System.out.println("The file name you have entered is missing or invalid.");
-        }
+        FileReader fr = getFileReader(GET_TITLES_FILENAME_PROMPT);
         return fr;
     }
     
+    /**
+     * Print to console the list of words to ignore
+     */
     public void printIgnoreSet(String s) {
         System.out.println("\nThe list of words to ignore are: \n" + s);
         
     }
     
-    private FileReader getFileReader(String filename) throws FileNotFoundException {
-        FileReader fr = new FileReader(filename);
+    /**
+     * Asks the user for a valid file name and returns a FileReader object of that file
+     */
+    private FileReader getFileReader(String prompt) {
+        FileReader fr = null;
+        try {
+            do {
+                String fileName = getFileName(prompt);
+                fr = new FileReader(fileName);
+            } while (fr == null);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("The file name you have entered is missing or invalid.");
+            fr = null;
+        }
+        
         return fr;
     }
     
-    private String getFileName(String prompt) throws InvalidFileNameException {
+    /**
+     * Returns the file name entered by the user
+     */
+    private String getFileName(String prompt) throws FileNotFoundException {
         String filename = "";
         
         System.out.println(prompt);
@@ -83,16 +104,10 @@ public class TextUi {
             filename = sc.nextLine();
         }
         if (filename.isEmpty()) {
-            throw new InvalidFileNameException();
+            throw new FileNotFoundException();
         }
         
         return filename;
-    }
-
-    private boolean isFilenameValid(String filename) {
-        File file = new File(filename);
-        
-        return file.exists() && file.isFile();
     }
 
 }

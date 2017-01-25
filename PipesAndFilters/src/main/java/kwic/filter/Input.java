@@ -8,25 +8,30 @@ import kwic.pipe.Pipe;
 
 public class Input extends Filter {
     
-    private String filename;
+    private FileReader inputFr;
     
-    public Input(Pipe input, Pipe output, String filename) {
+    public Input(Pipe input, Pipe output, FileReader fr) {
         super(input, output);
-        this.filename = filename;
+        inputFr = fr;
     }
 
     @Override
     public void run() {
+        BufferedReader br = new BufferedReader(inputFr);
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
             String line = br.readLine();
             while (line != null) {
                 pushToOutput(line);
                 line = br.readLine();
             }
-            br.close();
         } catch (IOException e) {
-            System.out.println("Error: Failed to read " + filename);
+            System.out.println("Error occurred while reading file containing list of input titles");
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                System.out.println("Unrecoverable error from Input::run()");
+            }
         }
     }
 

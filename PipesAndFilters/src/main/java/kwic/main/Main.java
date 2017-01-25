@@ -1,5 +1,6 @@
 package kwic.main;
 
+import java.io.FileReader;
 import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,13 +20,14 @@ public class Main {
         TextUi textUi = new TextUi();
         
         textUi.displayTitle();
+        textUi.initScanner();
         HashSet<String> ignoreSet = textUi.getSetOfIgnoreWords();
-        String filename = textUi.getFileReaderOfInputTitles();
+        FileReader inputFileReader = textUi.getFileReaderOfInputTitles();
         textUi.closeScanner();
         textUi.printIgnoreSet(ignoreSet.toString());
         
         Pipe inputToCsConnector = new Pipe();
-        Filter input = new Input(null, inputToCsConnector, filename);
+        Filter input = new Input(null, inputToCsConnector, inputFileReader);
         
         Pipe csToAlphaConnector = new Pipe();
         Filter circularShift = new CircularShift(inputToCsConnector, csToAlphaConnector, ignoreSet);
