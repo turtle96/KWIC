@@ -34,7 +34,7 @@ public class KwicInput implements Input {
         
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            if (input.equals("end")) {
+            if (input.equalsIgnoreCase("end")) {
                 break;
             }
             else if (!input.trim().isEmpty()) {
