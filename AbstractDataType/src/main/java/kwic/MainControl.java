@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class MainControl {
 
     public static void main(String[] args) {
+
+        TextUI.printWelcomeMessage();
+        
         Input input = new KwicInput();
         input.readInput(new Scanner(System.in));
         ArrayList<ArrayList<String>> titles = input.getTitles();
@@ -21,7 +24,6 @@ public class MainControl {
 
         Output output = new KwicOutput();
         output.display(titles, sortedAddresses);
-        
     }
 
 }

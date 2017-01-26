@@ -20,14 +20,16 @@ public class KwicInput implements Input {
     
     @Override
     public void readInput(Scanner scanner) {
+        TextUI.printEnterWordsToIgnoreMessage();
         readWordsToIgnore(scanner);
+        
+        TextUI.printEnterTitlesMessage();
         readTitles(scanner);
         
         scanner.close();
     }
 
     private void readTitles(Scanner scanner) {
-        System.out.println("Enter titles to index (press enter after each title, and type 'end' to finish): ");
         titles = new ArrayList<>();
         
         while (scanner.hasNextLine()) {
@@ -46,7 +48,6 @@ public class KwicInput implements Input {
     }
 
     private void readWordsToIgnore(Scanner scanner) {
-        System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
         wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
 
         wordsToIgnore.removeAll(Arrays.asList("", " "));
