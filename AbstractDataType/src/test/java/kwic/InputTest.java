@@ -15,32 +15,26 @@ public class InputTest extends KwicInput {
     
     @Test
     public void readTitles_shouldParseInputCorrectly() throws FileNotFoundException {
-        File file = new File(FILEPATH_INPUT_01);
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(getFile(FILEPATH_INPUT_01));
         Input input = new KwicInput();
         input.readInput(scanner);
-        
-        ArrayList<ArrayList<String>> titles = input.getTitles();
         
         ArrayList<ArrayList<String>> expected = prepareExpectedTitles(
                 "The Day after Tomorrow", "Fast and Furious", "Man of Steel");
 
-        assert titles.equals(expected);
+        assert input.getTitles().equals(expected);
     }
     
     @Test
     public void readTitles_shouldIgnoreWhiteSpaces() throws FileNotFoundException {
-        File file = new File(FILEPATH_INPUT_02);
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(getFile(FILEPATH_INPUT_02));
         Input input = new KwicInput();
         input.readInput(scanner);
-        
-        ArrayList<ArrayList<String>> titles = input.getTitles();
-        
+       
         ArrayList<ArrayList<String>> expected = prepareExpectedTitles(
                 "The Day after Tomorrow", "Fast and Furious", "Man of Steel");
 
-        assert titles.equals(expected);
+        assert input.getTitles().equals(expected);
     }
 
     private ArrayList<ArrayList<String>> prepareExpectedTitles(String... strings) {
@@ -50,6 +44,11 @@ public class InputTest extends KwicInput {
             expected.add(new ArrayList<>(Arrays.asList(line.split(" "))));
         }
         return expected;
+    }
+    
+    private File getFile(String filepath) {
+        File file = new File(filepath);
+        return file;
     }
 
 }
