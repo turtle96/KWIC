@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import org.junit.Test;
 
-public class InputTest extends KwicInput {
+public class InputTest extends KwicTest {
     
     private static final String WORDS_TO_IGNORE = "is the of and as a after";
     private static final String FILEPATH_INPUT_01 = "src\\test\\files\\input01.txt";
@@ -65,19 +65,6 @@ public class InputTest extends KwicInput {
                 "end of the end", "something else", "the mummy");
 
         assert input.getTitles().equals(expected);
-    }
-
-    private ArrayList<ArrayList<String>> prepareExpectedTitles(String... strings) {
-        ArrayList<ArrayList<String>> expected = new ArrayList<>();
-        ArrayList<String> expectedLines = new ArrayList<>(Arrays.asList(strings)); 
-        for (String line: expectedLines) {
-            expected.add(new ArrayList<>(Arrays.asList(line.split(" "))));
-        }
-        return expected;
-    }
-    
-    private ArrayList<String> prepareExpectedWords(String string) {
-        return new ArrayList<>(Arrays.asList(string.split(" ")));
     }
     
     private File getFile(String filepath) {
