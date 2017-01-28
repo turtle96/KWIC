@@ -40,8 +40,7 @@ public class KwicAlphabetize implements Alphabetize {
         ArrayList<String> leftTitle = titles.get(left.getLineIndex()), rightTitle = titles.get(right.getLineIndex());
         int leftIndex = left.getStartIndex(), rightIndex = right.getStartIndex();
         
-        do {
-            
+        do {           
             leftWord = leftTitle.get(leftIndex);
             rightWord = rightTitle.get(rightIndex);
             
@@ -50,13 +49,13 @@ public class KwicAlphabetize implements Alphabetize {
             leftIndex%=leftTitle.size();
             rightIndex%=rightTitle.size();
             
-            if (leftWord.compareToIgnoreCase(rightWord) > 0) {
+            if (leftWord.compareTo(rightWord) > 0) {
                 return true;
             } 
-            else if (leftWord.compareToIgnoreCase(rightWord) < 0) {
+            else if (leftWord.compareTo(rightWord) < 0) {
                 return false;
             }
-        } while (leftWord.equalsIgnoreCase(rightWord)
+        } while (leftWord.equals(rightWord)
                 && leftIndex!=left.getStartIndex()
                 && rightIndex!=right.getStartIndex());
         
