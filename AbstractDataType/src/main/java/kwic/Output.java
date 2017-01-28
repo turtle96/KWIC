@@ -5,6 +5,7 @@ import java.util.ArrayList;
  * */
 public interface Output {
     
-    public void display(ArrayList<ArrayList<String>> titles, ArrayList<Address> addresses);
+    /** Displays indexed list and writes to file **/
+    public void displayIndexAndWriteToFile(ArrayList<ArrayList<String>> titles, ArrayList<Address> addresses);
     
 }

@@ -6,10 +6,15 @@ import java.util.Scanner;
  * */
 public interface Input {
     
-    void readInput(Scanner scanner);
+    /** Given Scanner, reads in input for both titles and words to ignore
+     *  saves parsed data as ArrayLists
+     **/
+    public void readInput(Scanner scanner);
     
+    /** Returns parsed list of titles **/
     public ArrayList<ArrayList<String>> getTitles();
     
+    /** Returns parsed list of words **/
     public ArrayList<String> getWordsToIgnore();
    
 }

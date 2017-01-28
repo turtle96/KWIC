@@ -22,13 +22,13 @@ public class MainControl {
 
     private static void executeOutput(ArrayList<ArrayList<String>> titles, ArrayList<Address> sortedAddresses) {
         Output output = new KwicOutput();
-        output.display(titles, sortedAddresses);
+        output.displayIndexAndWriteToFile(titles, sortedAddresses);
     }
 
     private static ArrayList<Address> executeAlphabetize(ArrayList<ArrayList<String>> titles,
             ArrayList<Address> shiftedAddresses) {
-        Alphabetize alphabetize = new KwicAlphabetize(shiftedAddresses);
-        alphabetize.sort(titles);
+        Alphabetize alphabetize = new KwicAlphabetize();
+        alphabetize.sort(titles, shiftedAddresses);
         ArrayList<Address> sortedAddresses = alphabetize.getAddresses();
         return sortedAddresses;
     }

@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-/** Implements Output interface to display indexed list
+/** Implements Output interface to display indexed list and write output to file
  * */
 public class KwicOutput implements Output {
 
@@ -15,7 +15,7 @@ public class KwicOutput implements Output {
 	private static final String FILEPATH = "src\\output\\";
 
     @Override
-	public void display(ArrayList<ArrayList<String>> titles, ArrayList<Address> addresses) {
+	public void displayIndexAndWriteToFile(ArrayList<ArrayList<String>> titles, ArrayList<Address> addresses) {
 	    TextUI.printIndexOutputMessage();
 	    
 		String index = printIndex(titles, addresses);

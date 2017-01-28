@@ -1,5 +1,7 @@
 package kwic;
 
+/** Class to handle text UI when printing to console
+ * */
 public class TextUI {
     private static final String DECORATOR = "\n============================================================================\n";
     private static final String WELCOME_MESSAGE = "                        Welcome to KWIC Index System";
