@@ -8,7 +8,7 @@ import java.util.Arrays;
 public abstract class KwicTest {
     
     /** each string is split into words and stored as an array (using space as delimiter)
-     *  all the arrays each representing a line/title is then stored into an array
+     *  all the arrays each representing a line/title is then stored into another array
      * */
     protected ArrayList<ArrayList<String>> prepareExpectedTitles(String... strings) {
         ArrayList<ArrayList<String>> expected = new ArrayList<>();
@@ -19,6 +19,8 @@ public abstract class KwicTest {
         return expected;
     }
     
+    /** string is split into words and stored as an array (using space as delimiter)
+     * */
     protected ArrayList<String> prepareExpectedWords(String string) {
         return new ArrayList<>(Arrays.asList(string.split(" ")));
     }
