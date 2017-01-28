@@ -1,10 +1,11 @@
+package kwic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** read user input and save titles and wordsToIgnore
+/** Read user input and save titles and wordsToIgnore
  * */
 public class KwicInput implements Input {
     
@@ -18,22 +19,22 @@ public class KwicInput implements Input {
     }
     
     @Override
-    public void readInput() {
-        Scanner scanner = new Scanner(System.in);
-
+    public void readInput(Scanner scanner) {
+        TextUI.printEnterWordsToIgnoreMessage();
         readWordsToIgnore(scanner);
+        
+        TextUI.printEnterTitlesMessage();
         readTitles(scanner);
         
         scanner.close();
     }
 
     private void readTitles(Scanner scanner) {
-        System.out.println("Enter titles to index (press enter after each title, and type 'end' to finish): ");
         titles = new ArrayList<>();
         
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            if (input.equals("end")) {
+            if (input.equalsIgnoreCase("end")) {
                 break;
             }
             else if (!input.trim().isEmpty()) {
@@ -47,7 +48,6 @@ public class KwicInput implements Input {
     }
 
     private void readWordsToIgnore(Scanner scanner) {
-        System.out.println("Enter words to ignore (in a single line with each word separated by a space):");
         wordsToIgnore = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
 
         wordsToIgnore.removeAll(Arrays.asList("", " "));
