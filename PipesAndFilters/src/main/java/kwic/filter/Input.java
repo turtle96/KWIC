@@ -7,6 +7,9 @@ import java.io.IOException;
 import kwic.model.Data;
 import kwic.pipe.Pipe;
 
+/**
+ * Represents the main component, Input, of the system.
+ */
 public class Input extends Filter {
     
     private FileReader inputFr;
@@ -16,18 +19,18 @@ public class Input extends Filter {
         inputFr = fr;
     }
 
+    /**
+     * Read data from a file and pushes it to its output pipe.
+     * Sends a last data object when reached the end of file. 
+     */
     @Override
     public void run() {
         BufferedReader br = new BufferedReader(inputFr);
         try {
             String line = br.readLine();
-            sleepForXSeconds(1);
             while (line != null) {
-                System.out.println(getCurrentTime() + " Input read: " + line);
                 Data data = new Data(line);
                 pushToOutput(data);
-                System.out.println(getCurrentTime() + " Input pushed: " + line);
-                sleepForXSeconds(1);
                 line = br.readLine();
             }
         } catch (IOException e) {
@@ -41,7 +44,6 @@ public class Input extends Filter {
         }
         
         sendLastDataObjFlag();
-        System.out.println(getCurrentTime() + " Input pushed: last data");
     }
-
+    
 }

@@ -1,4 +1,4 @@
-package kwic.test.ui;
+package kwic.test;
 
 import static org.junit.Assert.assertTrue;
 
