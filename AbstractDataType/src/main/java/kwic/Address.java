@@ -18,4 +18,16 @@ public class Address {
     public int getStartIndex() {
         return startIndex;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Address) {
+            Address address = (Address) obj;
+            return this.lineIndex==address.getLineIndex() 
+                    && this.startIndex==address.getStartIndex();
+        }
+        else {
+            return false;
+        }     
+    }
 }
