@@ -7,17 +7,18 @@ public class MainControl {
     public static void main(String[] args) {
         Input input = new KwicInput();
         input.readInput();
-        
-        CircularShift circularShift = new KwicCircularShift();
-        
         ArrayList<ArrayList<String>> titles = input.getTitles();
-        
-		circularShift.shift(titles, input.getWordsToIgnore());
-		
-		ArrayList<Address> addresses = circularShift.getAddresses();
-        
+
+        CircularShift circularShift = new KwicCircularShift();
+        circularShift.shift(titles, input.getWordsToIgnore());
+        ArrayList<Address> shiftedAddresses = circularShift.getAddresses();
+
+        Alphabetize alphabetize = new KwicAlphabetize(shiftedAddresses);
+        alphabetize.sort(titles);
+        ArrayList<Address> sortedAddresses = alphabetize.getAddresses();
+
         Output output = new KwicOutput();
-        output.display(titles, addresses);
+        output.display(titles, sortedAddresses);
         
     }
 
