@@ -1,24 +1,32 @@
 package kwic.filter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import kwic.model.Data;
 import kwic.pipe.Pipe;
 
 /**
- * A class representing a filter that computes a task/process.
- * @author Vivian
- *
+ * Represents a filter that computes a task/process.
  */
 public abstract class Filter implements Runnable {
     
     private Pipe inputPipe;
     private Pipe outputPipe;
     
+    private int delayTime;
+    
     public Filter(Pipe input, Pipe output) {
         inputPipe = input;
         outputPipe = output;
+        delayTime = 500; // sets delay of filter to 500ms
+    }
+    
+    /**
+     * Initialize a Filter with delay time set to <b><i><code>delay</code></i></b> milliseconds
+     * @param delay length of time(in milliseconds) filter will sleep for when delay() method is called
+     */
+    public Filter(Pipe input, Pipe output, int delay) {
+        inputPipe = input;
+        outputPipe = output;
+        delayTime = delay;
     }
     
     /**
@@ -36,32 +44,31 @@ public abstract class Filter implements Runnable {
     }
     
     /**
-     * Returns true if there is no incoming data
+     * Returns true if there is no incoming data.
      */
     public boolean isInputEmpty() {
         return inputPipe.isEmpty();
     }
     
+    /**
+     * Sends a flag signaling that there is no more data to be sent.
+     */
     public void sendLastDataObjFlag() {
         pushToOutput(Data.createEndOfDataObj());
     }
     
-    public void sleepForXSeconds(int x) {
+    /**
+     * Pause the filter's execution for a set amount of time. The default is 500 milliseconds.
+     */
+    public void delay() {
         try {
-            int seconds = x * 1000;
-            Thread.sleep(seconds);
+            Thread.sleep(delayTime);
         } catch (InterruptedException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
+    
     @Override
     public abstract void run();
-    
-    public String getCurrentTime() {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        return sdf.format(cal.getTime());
-    }
     
 }

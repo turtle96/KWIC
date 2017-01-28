@@ -5,6 +5,9 @@ import java.util.HashSet;
 import kwic.model.Data;
 import kwic.pipe.Pipe;
 
+/**
+ * Represents the main component, Circular Shift, of the system.
+ */
 public class CircularShift extends Filter {
     
     private HashSet<String> ignoreSet;    
@@ -14,41 +17,47 @@ public class CircularShift extends Filter {
         this.ignoreSet = ignoreSet;
     }
 
+    /**
+     * Read data from input pipe. 
+     * Perform circular shift on the data. 
+     * Push transformed data to output pipe.
+     */
     @Override
     public void run() {
         while (true) {
             if (isInputEmpty()) {
-                sleepForXSeconds(1);
+                delay();
             } else {
-                sleepForXSeconds(1);
                 Data data = pullFromInput();
-                System.out.println(getCurrentTime() + " CS pulled: " + data.getValue());
                 if (data.isLast()) {
                     sendLastDataObjFlag();
-                    System.out.println(getCurrentTime() + " CS pushed: last data");
                     break;
                 }
-                shiftTitle(data.getValue());
+                shiftInput(data.getValue());
             }
         }
     }
     
-    private void shiftTitle(String line) {
+    /**
+     * Performs circular shift on input string.
+     */
+    private void shiftInput(String line) {
         String[] words = line.split(" ");
         for (int i = 0; i < words.length; i++) {
             if (ignoreSet.contains(words[i].toLowerCase())) {
                 continue;
             } else {
-                String shiftedLine = buildTitleFromIthWord(words, i);
+                String shiftedLine = buildOutputFromIthWord(words, i);
                 pushToOutput(new Data(shiftedLine));
-                System.out.println(getCurrentTime() + " CS pushed: " + shiftedLine);
-                sleepForXSeconds(1);
             }
         }
         
     }
 
-    private String buildTitleFromIthWord(String[] words, int i) {
+    /**
+     * Build output string starting from the i-th index of the input array.
+     */
+    private String buildOutputFromIthWord(String[] words, int i) {
         StringBuilder sb = new StringBuilder();
         final int NUM_OF_WORDS = words.length;
         int count = 0;

@@ -13,7 +13,16 @@ import kwic.filter.Output;
 import kwic.pipe.Pipe;
 import kwic.ui.TextUi;
 
-public class Main {
+/**
+ * System: Pipes and Filters.<br>
+ * 
+ * <p>
+ * Represents the main control of the system. 
+ * It creates filters, connects them with pipes, and initiate the running of all filters.
+ * It also issues the command to shutdown the system.
+ * </p>
+ */
+public class MainControl {
     
     private HashSet<String> ignoreSet;
     private FileReader inputFileReader;
@@ -25,11 +34,24 @@ public class Main {
     
     private ExecutorService es;
     
+    /**
+     * Shutdown the system.
+     */
     private void shutdown() {
         es.shutdown();
     }
+    
+    /**
+     * Force shutdown the system.
+     */
+    private void shutdownNow() {
+        es.shutdownNow();
+    }
 
-    private void runFilters() {
+    /**
+     * Initiate the system.
+     */
+    private void init() {
         final int NUM_OF_FILTERS = 4;
         es = Executors.newFixedThreadPool(NUM_OF_FILTERS);
         es.execute(input);
@@ -38,6 +60,9 @@ public class Main {
         es.execute(output);
     }
 
+    /**
+     * Create filters and connect them with pipes to form a system.
+     */
     private void createPipesAndFilters() {
         Pipe inputToCsConnector = new Pipe();
         input = new Input(null, inputToCsConnector, inputFileReader);
@@ -51,6 +76,9 @@ public class Main {
         output = new Output(alphaToOutputConnector, null);
     }
 
+    /**
+     * Get filenames of input data from the user.
+     */
     private void getInputsFromUser() {
         TextUi textUi = new TextUi();
 
@@ -63,11 +91,16 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        Main mainControl = new Main();
+        MainControl mainControl = new MainControl();
         mainControl.getInputsFromUser();
         mainControl.createPipesAndFilters();
-        mainControl.runFilters();
-        mainControl.shutdown();
+        try {
+            mainControl.init();
+            mainControl.shutdown();
+        } catch (Exception e) {
+            // catch any unhandled exceptions and shutdown all threads immediately
+            mainControl.shutdownNow();
+        }
     }
 
 }

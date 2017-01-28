@@ -63,7 +63,7 @@ public class TextUi {
      * Print to console the list of words to ignore
      */
     public void printIgnoreSet(String s) {
-        System.out.println("\nThe list of words to ignore are: \n" + s);
+        System.out.println("\nThe list of words to ignore are: \n" + s + "\n");
         
     }
     
@@ -86,7 +86,7 @@ public class TextUi {
     }
     
     /**
-     * Returns the file name entered by the user
+     * Returns the file name entered by the user.
      */
     private String getFileName(String prompt) throws FileNotFoundException {
         String filename = "";
