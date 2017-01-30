@@ -12,7 +12,8 @@ public class KwicOutput implements Output {
 
     private static final Logger LOGGER = Logger.getLogger(KwicOutput.class.getName());
     
-	private static final String FILEPATH = "src\\output\\";
+	public static final String FILEPATH = ".\\output\\";
+	public static final String OUTPUT_FILENAME = "output.txt";
 
     @Override
 	public void displayIndexAndWriteToFile(ArrayList<ArrayList<String>> titles, ArrayList<Address> addresses) {
@@ -26,7 +27,7 @@ public class KwicOutput implements Output {
     private void writeToFile(String index) {
         
         try {
-            Files.write(Paths.get(FILEPATH + "output.txt"), index.getBytes());
+            Files.write(Paths.get(FILEPATH + OUTPUT_FILENAME), index.getBytes());
             TextUI.printOutputSavedMessage();
         } catch (IOException e) {
             LOGGER.warning("File write error");
