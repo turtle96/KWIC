@@ -3,6 +3,7 @@ package kwic;
 /** Class to handle text UI when printing to console
  * */
 public class TextUI {
+    
     private static final String DECORATOR = "\n============================================================================\n";
     private static final String WELCOME_MESSAGE = "                        Welcome to KWIC Index System";
     
@@ -15,6 +16,7 @@ public class TextUI {
     private static final String ENTER_TITLES_MESSAGE_02 = "Type 'end' and press 'Enter' when you are done";
     
     private static final String INDEX_OUTPUT_MESSAGE = "Your KWIC-indexed titles:";
+    private static final String INDEX_SAVED_MESSAGE = "Index saved to src\\output\\output.txt";
     
     private static final String BULLET_POINT = "\n * ";
     
@@ -49,5 +51,9 @@ public class TextUI {
     
     public static void printIndexOutputMessage() {
         System.out.println(DECORATOR + INDEX_OUTPUT_MESSAGE + DECORATOR);
+    }
+    
+    public static void printOutputSavedMessage() {
+        System.out.println(DECORATOR + INDEX_SAVED_MESSAGE + DECORATOR);
     }
 }

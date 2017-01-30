@@ -27,6 +27,7 @@ public class KwicOutput implements Output {
         
         try {
             Files.write(Paths.get(FILEPATH + "output.txt"), index.getBytes());
+            TextUI.printOutputSavedMessage();
         } catch (IOException e) {
             LOGGER.warning("File write error");
         }
